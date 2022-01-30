@@ -13,8 +13,13 @@ export function DataContextProvider({ children }) {
     modal.style.right = "-100px";
   }
 
+  function closeModal() {
+    let modal = document.querySelector("[data-modal-cont]");
+    modal.style.right = "-1500px";
+  }
+
   return (
-    <DataContext.Provider value={{ openModal }}>
+    <DataContext.Provider value={{ openModal, closeModal }}>
       {children}
     </DataContext.Provider>
   );

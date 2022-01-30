@@ -1,4 +1,4 @@
-import { Error, Header, Modal, Months } from "../components";
+import { BackNav, Error, Header, Modal, Months } from "../components";
 import NavBar from "../components/Navbar/Navbar";
 
 import { useContext } from "react";
@@ -14,6 +14,7 @@ export default function Home() {
     <>
       <Modal>
         <h1>Welcome</h1>
+        <BackNav active="February" />
       </Modal>
       <div>
         <Header />

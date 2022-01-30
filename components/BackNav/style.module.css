@@ -1,0 +1,27 @@
+.backnavCont {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: var(--light1);
+}
+
+.backnavCont .icon {
+  padding: 0.9vmax;
+  border-radius: 10px;
+  background: var(--bg2);
+  margin-right: 20px;
+  transform: scale(0.9);
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.backnavCont .icon:hover {
+  transform: scale(0.95);
+  transition: 0.2s ease;
+}

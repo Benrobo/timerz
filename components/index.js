@@ -4,3 +4,4 @@ export { default as Error } from "./Error/Error";
 export { default as Months } from "./Collections/Months";
 export { default as Days } from "./Collections/Days";
 export { default as Modal } from "./Modal/Modal";
+export { default as BackNav } from "./BackNav/BackNav";
