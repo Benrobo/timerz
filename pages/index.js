@@ -1,4 +1,4 @@
-import { BackNav, Error, Header, Modal, Months } from "../components";
+import { BackNav, Days, Error, Header, Modal, Months } from "../components";
 import NavBar from "../components/Navbar/Navbar";
 
 import { useContext } from "react";
@@ -12,10 +12,6 @@ export default function Home() {
 
   return (
     <>
-      <Modal>
-        <h1>Welcome</h1>
-        <BackNav active="February" />
-      </Modal>
       <div>
         <Header />
         {/* <Error message="You have no collection" /> */}
@@ -32,6 +28,16 @@ export default function Home() {
           <div className={style.space}></div>
         </div>
         <NavBar />
+
+        {/* Modal Page */}
+        <Modal>
+          <BackNav active="February" />
+          <br />
+          <Days />
+          <br />
+
+          <NavBar />
+        </Modal>
       </div>
     </>
   );

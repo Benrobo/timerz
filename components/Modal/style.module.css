@@ -8,8 +8,8 @@
   right: -1500px;
   background: var(--bg);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   z-index: 1500;
   transition: 0.2s ease;
 }

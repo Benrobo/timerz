@@ -10,7 +10,7 @@ export function DataContextProvider({ children }) {
 
   function openModal() {
     let modal = document.querySelector("[data-modal-cont]");
-    modal.style.right = "-100px";
+    modal.style.right = "0px";
   }
 
   function closeModal() {
