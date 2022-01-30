@@ -1,0 +1,39 @@
+.cards {
+  width: 100%;
+  height: 100px;
+  background: var(--bg2);
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: var(--light1);
+  opacity: 0.8;
+}
+
+.cards:hover {
+  opacity: 1;
+}
+
+.cards .left .icon {
+  width: 50px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.cards .right {
+  width: 100%;
+  position: relative;
+  left: 20px;
+}
+
+.cards .right h2 {
+  padding: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.cards .right .small {
+  padding-left: 10px;
+  color: var(--light2);
+}

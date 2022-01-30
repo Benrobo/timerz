@@ -1,0 +1,14 @@
+.layout {
+  width: var(--main-width);
+  height: 100vh;
+  margin: 0px auto;
+  position: relative;
+  top: 0px;
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    width: 100%;
+  }
+}

@@ -1,0 +1,18 @@
+.header {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  position: relative;
+  color: var(--light1);
+  font-size: 1.5vmax;
+}
+
+.header .flex {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.header .flex .right .logo {
+  width: 10vmax;
+}
