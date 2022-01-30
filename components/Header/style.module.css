@@ -4,7 +4,7 @@
   padding: 10px;
   position: relative;
   color: var(--light1);
-  font-size: 1.5vmax;
+  font-size: 1vmax;
 }
 
 .header .flex {
@@ -15,4 +15,10 @@
 
 .header .flex .right .logo {
   width: 10vmax;
+}
+
+@media (max-width: 450px) {
+  .header {
+    font-size: 1.5vmax !important;
+  }
 }
