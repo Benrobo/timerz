@@ -1,0 +1,10 @@
+.monthsCont {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.monthsCont::-webkit-scrollbar {
+  display: none;
+}

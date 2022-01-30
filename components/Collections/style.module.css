@@ -9,6 +9,8 @@
   justify-content: flex-start;
   color: var(--light1);
   opacity: 0.8;
+  margin-top: 15px;
+  cursor: pointer;
 }
 
 .cards:hover {
