@@ -5,6 +5,8 @@
   position: relative;
   top: 0px;
   padding: 10px;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 @media (max-width: 768px) {

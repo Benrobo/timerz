@@ -2,11 +2,15 @@ import "../styles/globals.css";
 
 import { Layout } from "../components/";
 
+import { DataContextProvider } from "../context/DataContext";
+
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <DataContextProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </DataContextProvider>
   );
 }
 

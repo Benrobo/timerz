@@ -1,3 +1,7 @@
+import { useContext } from "react";
+
+import DataContext from "../../context/DataContext";
+
 import style from "./style.module.css";
 
 export default function Months({
@@ -6,10 +10,10 @@ export default function Months({
   year = "2022",
   tasks = "2",
 }) {
-  let styleName = false;
+  let { openModal } = useContext(DataContext);
 
   return (
-    <div className={style.cards}>
+    <div className={style.cards} onClick={openModal}>
       <div className={style.left}>
         <img
           src="/img/icons/shield.png"

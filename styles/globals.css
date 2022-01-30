@@ -22,6 +22,7 @@ body {
   margin: 0;
   font-family: Poppins;
   background-color: var(--bg);
+  overflow-y: hidden;
 }
 
 a {
