@@ -3,7 +3,7 @@ import DataContext from "../../context/DataContext";
 
 import style from "./style.module.css";
 
-export default function NavBar() {
+export default function NavBar({ active }) {
   let { formvisibility, setFormVisibility, openAddMonth } =
     useContext(DataContext);
 
@@ -13,7 +13,9 @@ export default function NavBar() {
         src="/img/icons/plus.png"
         className={style.icon}
         onClick={() => {
-          openAddMonth();
+          if (active === "months") {
+            return openAddMonth();
+          }
         }}
       />
     </div>

@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { AddDays } from "..";
 
 import DataContext from "../../context/DataContext";
 
@@ -33,6 +34,7 @@ export default function Days({
             </div>
           );
         })}
+        <AddDays />
       </div>
     </>
   );

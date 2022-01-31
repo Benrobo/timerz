@@ -6,7 +6,7 @@
   position: absolute;
   top: 0px;
   right: 0px;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.9);
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
@@ -197,4 +197,21 @@
 .formModal .formCont .bottom .create:hover {
   transition: 0.2s ease;
   opacity: 1;
+}
+
+/* DAYS CONTAINER */
+
+.daysModal {
+  width: var(--main-width);
+  height: 100vh;
+  padding: 10px;
+  margin: 0px;
+  position: fixed;
+  top: 0px;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  z-index: 1500;
+  transition: 0.2s ease;
 }
