@@ -45,7 +45,7 @@ export function DataContextProvider({ children }) {
     setColorVal(colorVal.value);
   }
 
-  console.log(util.getData() !== undefined ? util.getData() : "nothing");
+  console.log(util.getData());
 
   function createData() {
     console.log(selectedYear, selectedMonth);
@@ -57,20 +57,19 @@ export function DataContextProvider({ children }) {
       return util.error("color isnt selected");
     }
 
-    let localData = JSON.parse(util.getData());
+    let localData = util.getData();
 
     let newPayload = {
       id: util.genId(),
       month: selectedMonth,
       year: selectedYear,
+      color: colorVal,
       month_tasks: [],
     };
 
     localData.push(newPayload);
 
-    return console.log(localData);
-
-    util.addData(JSON.stringify(localData));
+    util.addData(localData);
     util.success("Month saved");
   }
 

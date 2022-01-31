@@ -15,7 +15,7 @@ export class Util {
 
       //   check if localstorage data is not null
       if (localStorage.getItem("timerz") === null) {
-        localStorage.setItem("timerz", JSON.stringify([]));
+        return localStorage.setItem("timerz", JSON.stringify([]));
       }
       this.local = localStorage.getItem("timerz");
     }
