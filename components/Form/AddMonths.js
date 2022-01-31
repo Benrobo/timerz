@@ -157,7 +157,7 @@ export default function AddMonths() {
 
 function Colors() {
   const { handleColorActive } = useContext(DataContext);
-  let colors = ["9B45D1", "FFD600", "00FFC2", "FF008A"];
+  let colors = ["9B45D1", "FF008A", "00FFC2"];
 
   return (
     <>
