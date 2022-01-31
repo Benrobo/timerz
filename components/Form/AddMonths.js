@@ -20,15 +20,22 @@ const months = [
 ];
 
 export default function AddMonths() {
-  const { colorVal, setColorVal, openAddMonth } = useContext(DataContext);
+  const {
+    colorVal,
+    setColorVal,
+    selectedMonth,
+    selectedYear,
+    setSelectedMonth,
+    setSelectedYear,
+    createData,
+    openAddMonth,
+  } = useContext(DataContext);
 
   // get years
   let years = [];
   for (let i = new Date().getFullYear(); i < 2099; i++) {
     years.push(i);
   }
-
-  //   let colorCont = document.querySelectorAll("[data-colors]");
 
   return (
     <div
@@ -51,7 +58,14 @@ export default function AddMonths() {
             <label htmlFor="" className={style.label}>
               Month
             </label>
-            <select className={style.select}>
+            <select
+              className={style.select}
+              onChange={(e) => {
+                setSelectedMonth(e.target.value);
+              }}
+            >
+              <option value="">Select Month</option>
+
               {months.map((list, i) => (
                 <option value={list} key={i}>
                   {list}
@@ -63,7 +77,13 @@ export default function AddMonths() {
             <label htmlFor="" className={style.label}>
               Year
             </label>
-            <select className={style.select}>
+            <select
+              className={style.select}
+              onChange={(e) => {
+                setSelectedYear(e.target.value);
+              }}
+            >
+              <option value="">Select Year</option>
               {years.map((list, i) => {
                 return (
                   <option value={list} key={i}>
@@ -114,7 +134,21 @@ export default function AddMonths() {
           >
             Cancel
           </button>
-          <button className={style.create}>Create</button>
+          <button
+            className={style.create}
+            onClick={() => {
+              createData();
+              if (
+                colorVal !== "" &&
+                selectedMonth !== "" &&
+                selectedYear !== ""
+              ) {
+                openAddMonth();
+              }
+            }}
+          >
+            Create
+          </button>
         </div>
       </div>
     </div>

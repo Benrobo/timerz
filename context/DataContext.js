@@ -1,16 +1,26 @@
 import { createContext } from "react";
 import { useState } from "react";
-
+import { Util } from "../util";
 const DataContext = createContext();
 
 export default DataContext;
+
+// utility instance
+const util = new Util();
 
 export function DataContextProvider({ children }) {
   const [monthVisible, setMonthVisible] = useState(false);
   const [daysVisible, setDaysVisible] = useState(false);
   const [colorVal, setColorVal] = useState("");
-  // modal show/hide
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedYear, setSelectedYear] = useState("");
+  // const [selectedDays, setSelectedDays] = useState("")
+  const [daysTitle, setDaysTitle] = useState("");
+  const [daysSubTitle, setDaysSubTitle] = useState("");
+  const [daysStart, setDaysStart] = useState("");
+  const [daysEnd, setDaysEnd] = useState("");
 
+  // modal show/hide
   function openModal() {
     let modal = document.querySelector("[data-modal-cont]");
     modal.style.right = "0px";
@@ -35,12 +45,48 @@ export function DataContextProvider({ children }) {
     setColorVal(colorVal.value);
   }
 
+  console.log(util.getData() !== undefined ? util.getData() : "nothing");
+
+  function createData() {
+    console.log(selectedYear, selectedMonth);
+    if (selectedMonth === "") {
+      return util.error("months isnt selected");
+    } else if (selectedYear === "") {
+      return util.error("year isnt selected");
+    } else if (colorVal === "") {
+      return util.error("color isnt selected");
+    }
+
+    let localData = JSON.parse(util.getData());
+
+    let newPayload = {
+      id: util.genId(),
+      month: selectedMonth,
+      year: selectedYear,
+      month_tasks: [],
+    };
+
+    localData.push(newPayload);
+
+    return console.log(localData);
+
+    util.addData(JSON.stringify(localData));
+    util.success("Month saved");
+  }
+
   return (
     <DataContext.Provider
       value={{
         colorVal,
         monthVisible,
         daysVisible,
+        selectedMonth,
+        selectedYear,
+        util,
+        daysTitle,
+        daysSubTitle,
+        daysStart,
+        daysEnd,
         openModal,
         closeModal,
         openAddMonth,
@@ -49,6 +95,13 @@ export function DataContextProvider({ children }) {
         setColorVal,
         setMonthVisible,
         setDaysVisible,
+        setSelectedMonth,
+        setSelectedYear,
+        setDaysTitle,
+        setDaysSubTitle,
+        setDaysStart,
+        setDaysEnd,
+        createData,
       }}
     >
       {children}

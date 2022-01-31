@@ -15,22 +15,20 @@ import style from "../styles/home.module.css";
 import DataContext from "../context/DataContext";
 
 export default function Home() {
-  let { monthVisible, setMonthVisible } = useContext(DataContext);
+  let { monthVisible, util } = useContext(DataContext);
 
   return (
     <>
       <div>
         <Header />
-        {/* <Error message="You have no collection" /> */}
-        <div className={style.monthsCont}>
-          <Months />
-          <Months />
-          <Months />
-          <Months />
-          <Months />
-          <Months />
-          <div className={style.space}></div>
-        </div>
+        {util.getData() !== undefined && util.getData().length === 0 ? (
+          <Error message="You have no collection" />
+        ) : (
+          <div className={style.monthsCont}>
+            <Months data={util.getData()} />
+            <div className={style.space}></div>
+          </div>
+        )}
         <NavBar active="months" />
 
         <Modal>
