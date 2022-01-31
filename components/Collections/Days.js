@@ -15,7 +15,7 @@ export default function Days({
   return (
     <>
       <div className={style.daysContainer}>
-        {Array.from("1, 2, 3, 4, 4,5,6,6,7,").map((_, i) => {
+        {Array.from("1,2").map((_, i) => {
           return (
             <div className={style.main} key={i}>
               <p className={style.p}>{days}</p>

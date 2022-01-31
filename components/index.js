@@ -5,3 +5,5 @@ export { default as Months } from "./Collections/Months";
 export { default as Days } from "./Collections/Days";
 export { default as Modal } from "./Modal/Modal";
 export { default as BackNav } from "./BackNav/BackNav";
+export { default as AddMonths } from "./Form/AddMonths";
+export { default as AddDays } from "./Form/AddDays";

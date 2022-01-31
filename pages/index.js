@@ -1,14 +1,21 @@
-import { BackNav, Days, Error, Header, Modal, Months } from "../components";
-import NavBar from "../components/Navbar/Navbar";
-
 import { useContext } from "react";
+import {
+  AddMonths,
+  BackNav,
+  Days,
+  Error,
+  Header,
+  Modal,
+  Months,
+} from "../components";
+import NavBar from "../components/Navbar/Navbar";
 
 import style from "../styles/home.module.css";
 
 import DataContext from "../context/DataContext";
 
 export default function Home() {
-  let test = useContext(DataContext);
+  let { formvisibility, setFormVisibility } = useContext(DataContext);
 
   return (
     <>
@@ -16,9 +23,6 @@ export default function Home() {
         <Header />
         {/* <Error message="You have no collection" /> */}
         <div className={style.monthsCont}>
-          <Months />
-          <Months />
-          <Months />
           <Months />
           <Months />
           <Months />
@@ -35,9 +39,11 @@ export default function Home() {
           <br />
           <Days />
           <br />
-
           <NavBar />
         </Modal>
+
+        {/* add form container */}
+        {formvisibility && <AddMonths />}
       </div>
     </>
   );
