@@ -6,7 +6,8 @@ const DataContext = createContext();
 export default DataContext;
 
 export function DataContextProvider({ children }) {
-  const [formvisibility, setFormVisibility] = useState(false);
+  const [monthVisible, setMonthVisible] = useState(false);
+  const [daysVisible, setDaysVisible] = useState(false);
   const [colorVal, setColorVal] = useState("");
   // modal show/hide
 
@@ -21,7 +22,11 @@ export function DataContextProvider({ children }) {
   }
 
   function openAddMonth() {
-    setFormVisibility(!formvisibility);
+    setMonthVisible(!monthVisible);
+  }
+
+  function openAddDays() {
+    setDaysVisible(!daysVisible);
   }
 
   function handleColorActive(e) {
@@ -34,13 +39,16 @@ export function DataContextProvider({ children }) {
     <DataContext.Provider
       value={{
         colorVal,
-        formvisibility,
+        monthVisible,
+        daysVisible,
         openModal,
         closeModal,
         openAddMonth,
+        openAddDays,
         handleColorActive,
         setColorVal,
-        setFormVisibility,
+        setMonthVisible,
+        setDaysVisible,
       }}
     >
       {children}

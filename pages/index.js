@@ -15,8 +15,7 @@ import style from "../styles/home.module.css";
 import DataContext from "../context/DataContext";
 
 export default function Home() {
-  let { formvisibility, openAddMonth, setFormVisibility } =
-    useContext(DataContext);
+  let { monthVisible, setMonthVisible } = useContext(DataContext);
 
   return (
     <>
@@ -38,12 +37,11 @@ export default function Home() {
           <BackNav active="February" />
           <br />
           <Days />
-          <br />
           <NavBar active="days" />
         </Modal>
 
         {/* add form container */}
-        {formvisibility && <AddMonths />}
+        {monthVisible && <AddMonths />}
       </div>
     </>
   );

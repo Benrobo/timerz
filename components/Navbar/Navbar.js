@@ -4,8 +4,7 @@ import DataContext from "../../context/DataContext";
 import style from "./style.module.css";
 
 export default function NavBar({ active }) {
-  let { formvisibility, setFormVisibility, openAddMonth } =
-    useContext(DataContext);
+  let { openAddMonth, openAddDays } = useContext(DataContext);
 
   return (
     <div className={style.navbar}>
@@ -15,6 +14,8 @@ export default function NavBar({ active }) {
         onClick={() => {
           if (active === "months") {
             return openAddMonth();
+          } else if (active === "days") {
+            openAddDays();
           }
         }}
       />
