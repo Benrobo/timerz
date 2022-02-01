@@ -10,14 +10,27 @@ export default function Days({
   days = "Monday",
   subtitle = "a must for me",
 }) {
-  let { openAddDays, daysVisible, monthCardId, util } = useContext(DataContext);
+  let { openAddDays, daysVisible, monthCardId, setMonthCardId, util } =
+    useContext(DataContext);
   const [monthName, setMonthName] = useState("");
   const [monthtasks, setMonthTasks] = useState([]);
+  const [daystasks, setDaysTasks] = useState([]);
   const [clickCount, setClickCount] = useState(0);
   let localData = util.getDataId(monthCardId);
 
   useEffect(() => {
-    console.log(localData);
+    localData.map((list, i) => {
+      setMonthName(list.month);
+      setMonthTasks([...list.month_tasks]);
+
+      monthtasks.map((list, i) => {
+        if (list.day === "Monday") {
+          // console.log(list);
+        }
+        // setDaysTasks([...list.day_tasks]);
+      });
+    });
+    // console.log(daystasks, monthtasks);
   }, [monthCardId]);
 
   function moreAction(e) {
@@ -42,54 +55,58 @@ export default function Days({
 
   return (
     <>
-      <BackNav active="February" />
+      <BackNav active={monthName} />
 
       <div className={style.daysContainer}>
-        {Array.from("12").map((_, i) => {
-          return (
-            <div className={style.main} key={i} data-days-card>
-              <p className={style.p}>{days}</p>
-              <div className={style.daysCards}>
-                <div className={style.left}>
-                  <h2 className={style.h3}>{title}</h2>
-                  <small className={style.small}>{subtitle}</small>
-                </div>
-                <div className={style.right}>
-                  <span className={style.from}>09:20 am</span>
-                  <span className={style.to}>12:30 pm</span>
-                </div>
-                <img
-                  src="/img/icons/more.png"
-                  className={style.moreBtn}
-                  onClick={(e) => {
-                    moreAction(e);
-                  }}
-                />
-                {/* more container */}
-                <div className={style.moreCont} data-more-action>
-                  <li
-                    className={style.li}
+        {monthtasks.length > 0 ? (
+          monthtasks.map((list, i) => {
+            return (
+              <div className={style.main} key={i} data-days-card>
+                <p className={style.p}>{list.title}</p>
+                <div className={style.daysCards}>
+                  <div className={style.left}>
+                    <h2 className={style.h3}>{"dayTasks.title"}</h2>
+                    <small className={style.small}>{list.subtitle}</small>
+                  </div>
+                  <div className={style.right}>
+                    <span className={style.from}>09:20 am</span>
+                    <span className={style.to}>12:30 pm</span>
+                  </div>
+                  <img
+                    src="/img/icons/more.png"
+                    className={style.moreBtn}
                     onClick={(e) => {
-                      hideMore(e);
-                      openAddDays();
+                      moreAction(e);
                     }}
-                  >
-                    Edit
-                  </li>
-                  <li
-                    className={style.li}
-                    onClick={(e) => {
-                      hideMore(e);
-                    }}
-                  >
-                    Delete
-                  </li>
+                  />
+                  {/* more container */}
+                  <div className={style.moreCont} data-more-action>
+                    <li
+                      className={style.li}
+                      onClick={(e) => {
+                        hideMore(e);
+                        openAddDays();
+                      }}
+                    >
+                      Edit
+                    </li>
+                    <li
+                      className={style.li}
+                      onClick={(e) => {
+                        hideMore(e);
+                      }}
+                    >
+                      Delete
+                    </li>
+                  </div>
                 </div>
+                <div className={style.space}></div>
               </div>
-              <div className={style.space}></div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <p>No Tasks For this month</p>
+        )}
 
         {daysVisible && <AddDays />}
       </div>

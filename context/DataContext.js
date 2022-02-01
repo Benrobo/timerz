@@ -40,6 +40,7 @@ export function DataContextProvider({ children }) {
   }
 
   function closeModal() {
+    setMonthCardId(null);
     let modal = document.querySelector("[data-modal-cont]");
     modal.style.right = "-1500px";
   }
@@ -148,7 +149,9 @@ export function DataContextProvider({ children }) {
       return util.error("weeksday cant be empty");
     }
 
+    let daysPayload, prevData, targetMonthData, newData, fullUpdatedData;
     let daysTasks = {
+      id: util.genId(),
       title: daysTitle,
       subtitle: daysSubTitle,
       start: daysStart,
@@ -157,26 +160,69 @@ export function DataContextProvider({ children }) {
 
     daysTasksStore.push(daysTasks);
 
-    let daysPayload = {
+    /**
+     *
+     * @Todo1 : check if day is present in month data also check if it has the same day (Monday === Monday), if they are the same, dont create extra day, just append the payload to the day_tasks array.
+     */
+
+    const localData = util.getDataId(monthCardId);
+    let checkCount = 0;
+    localData
+      .map((list, i) => {
+        return list.month_tasks;
+      })[0]
+      .map((list, i) => {
+        if (list.day === day) {
+          return (checkCount += 1);
+        }
+        checkCount = 0;
+      });
+
+    if (checkCount > 0) {
+      let monthTasks = util.getDataId(monthCardId).map((list, i) => {
+        return list.month_tasks;
+      })[0];
+      monthTasks.map((list, i) => {
+        list.day_tasks = [...list.day_tasks, ...daysTasksStore];
+      });
+
+      targetMonthData = util.getDataId(monthCardId);
+      targetMonthData[0].month_tasks = monthTasks;
+
+      // save both the previous data and updated data in localstorage
+      prevData = util.getData();
+
+      newData = prevData.filter((list, id) => {
+        return list.id !== monthCardId;
+      });
+
+      fullUpdatedData = [...newData, ...targetMonthData];
+
+      localStorage.setItem("timerz", JSON.stringify(fullUpdatedData));
+      daysTasksStore = [];
+      return util.success("day task added");
+    }
+
+    daysPayload = {
       id: util.genId(),
       day: day,
       day_tasks: daysTasksStore,
     };
     mainDaysStore.push(daysPayload);
-    let targetMonthData = util.getDataId(monthCardId);
+    targetMonthData = util.getDataId(monthCardId);
     targetMonthData[0].month_tasks = [
       ...targetMonthData[0].month_tasks,
       ...mainDaysStore,
     ];
 
     // save both the previous data and updated data in localstorage
-    let prevData = util.getData();
+    prevData = util.getData();
 
-    let newData = prevData.filter((list, id) => {
+    newData = prevData.filter((list, id) => {
       return list.id !== monthCardId;
     });
 
-    let fullUpdatedData = [...newData, ...targetMonthData];
+    fullUpdatedData = [...newData, ...targetMonthData];
 
     localStorage.setItem("timerz", JSON.stringify(fullUpdatedData));
     // hide addDaysForm
