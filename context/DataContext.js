@@ -139,11 +139,7 @@ export function DataContextProvider({ children }) {
     localStorage.setItem("timerz", JSON.stringify(restData));
     if (confirm) {
       localStorage.setItem("timerz", JSON.stringify(restData));
-
       util.success("Record deleted");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
       return;
     }
   }

@@ -18,11 +18,6 @@ export default function Home() {
   let { monthVisible, util } = useContext(DataContext);
   const [storedData, setStoredData] = useState(null);
 
-  useEffect(() => {
-    setStoredData(util.getData());
-    return () => {};
-  }, [setStoredData]);
-
   return (
     <>
       <div>
@@ -31,7 +26,7 @@ export default function Home() {
           <Error message="You have no collection" />
         ) : (
           <div className={style.monthsCont}>
-            <Months data={storedData} />
+            <Months data={util.getData()} />
             <div className={style.space}></div>
           </div>
         )}
