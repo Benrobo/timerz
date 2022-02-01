@@ -198,6 +198,7 @@ export function DataContextProvider({ children }) {
   }
 
   function deleteMonthCard(monthId, cardId) {
+    // return console.log(monthId, cardId);
     let dayData = util
       .getDataId(monthId)
       .map((list, _) => {
@@ -215,6 +216,9 @@ export function DataContextProvider({ children }) {
     localStorage.setItem("timerz", JSON.stringify(fullUpdatedData));
     setMonthCardId("dfvdfvdf");
     util.success("succesfully deleted");
+    setTimeout(() => {
+      location.reload(true);
+    }, []);
   }
 
   return (

@@ -23,7 +23,7 @@ export default function Days() {
       setMonthName(list.month);
       setMonthTasks([...list.month_tasks]);
     });
-  }, [monthCardId]);
+  }, [monthCardId, setMonthCardId]);
 
   function moreAction(e) {
     let parent = e.target.parentElement;
@@ -101,7 +101,6 @@ export default function Days() {
                         data-month-id={monthCardId}
                         onClick={(e) => {
                           hideMore(e);
-                          setMonthCardId(list.id);
                           deleteMonthCard(monthCardId, list.id);
                         }}
                       >
