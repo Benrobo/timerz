@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Util } from "../util";
 const DataContext = createContext();
 
@@ -161,6 +162,7 @@ export function DataContextProvider({ children }) {
         daysCardId,
         editState,
         deleteState,
+        motion,
         deleteData,
         openModal,
         closeModal,

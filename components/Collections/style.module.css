@@ -27,6 +27,7 @@
 .cards .right {
   position: relative;
   left: 20px;
+  padding: 12px;
 }
 
 .cards .right h2 {

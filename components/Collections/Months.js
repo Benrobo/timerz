@@ -11,6 +11,7 @@ export default function Months({ data }) {
     setMonthCardId,
     setEditState,
     setDeleteState,
+    motion,
   } = useContext(DataContext);
 
   const [clickCount, setClickCount] = useState(0);
@@ -35,16 +36,22 @@ export default function Months({ data }) {
     setClickCount(0);
   }
 
+  // motion
+  const variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  };
+
   return (
     <>
       {data !== undefined && data !== null && data.length > 0 ? (
         data.map((list, i) => {
           return (
-            <div
+            <motion.div
+              animate={{ y: [-500, 100, 0] }}
+              transition={{ duration: 1 }}
+              variants={variants}
               className={style.cards}
-              onClick={(e) => {
-                openModal(e);
-              }}
               key={i}
               data-id={list.id}
             >
@@ -58,9 +65,19 @@ export default function Months({ data }) {
                       ? { background: `#${list.color}` }
                       : { background: "#f97ab9" }
                   }
+                  data-id={list.id}
+                  onClick={(e) => {
+                    openModal(e);
+                  }}
                 />
               </div>
-              <div className={style.right}>
+              <div
+                className={style.right}
+                data-id={list.id}
+                onClick={(e) => {
+                  openModal(e);
+                }}
+              >
                 <h2>{list.month}</h2>
                 <small className={style.small}>{list.year}</small>
                 <small className={style.small}>|</small>
@@ -101,7 +118,7 @@ export default function Months({ data }) {
                   Delete
                 </li>
               </div>
-            </div>
+            </motion.div>
           );
         })
       ) : (
