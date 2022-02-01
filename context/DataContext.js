@@ -131,12 +131,12 @@ export function DataContextProvider({ children }) {
   }
   // delete data
 
-  function deleteData() {
-    let restData = util.deleteData(monthCardId);
+  async function deleteData(id) {
+    let restData = util.deleteData(id);
     let confirm = window.confirm(
       "All records added for this month would be wiped away, are you sure."
     );
-
+    localStorage.setItem("timerz", JSON.stringify(restData));
     if (confirm) {
       localStorage.setItem("timerz", JSON.stringify(restData));
 

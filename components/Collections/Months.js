@@ -95,7 +95,7 @@ export default function Months({ data }) {
                     setMonthCardId(list.id);
                     setDeleteState(true);
                     setEditState(false);
-                    deleteData();
+                    deleteData(list.id);
                   }}
                 >
                   Delete
