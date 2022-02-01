@@ -28,12 +28,14 @@
   position: relative;
   left: 20px;
   padding: 12px;
+  width: 60%;
 }
 
 .cards .right h2 {
   padding: 0px;
   margin: 0px;
   padding: 0px;
+  width: 50%;
 }
 
 .cards .right .small {

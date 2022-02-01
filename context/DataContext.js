@@ -20,6 +20,9 @@ export function DataContextProvider({ children }) {
   const [daysSubTitle, setDaysSubTitle] = useState("");
   const [daysStart, setDaysStart] = useState("");
   const [daysEnd, setDaysEnd] = useState("");
+  const [day, setDay] = useState("");
+  let daysTasksStore = [];
+  let mainDaysStore = [];
 
   // Active cards (months/day)
   const [editState, setEditState] = useState(false);
@@ -30,6 +33,7 @@ export function DataContextProvider({ children }) {
   // modal show/hide
   function openModal(e) {
     if (Object.entries(e.target.dataset).length > 0) {
+      setMonthCardId(e.target.dataset.id);
       let modal = document.querySelector("[data-modal-cont]");
       modal.style.right = "0px";
     }
@@ -130,14 +134,62 @@ export function DataContextProvider({ children }) {
       }
     }
   }
-  // delete data
 
+  function createDaysData() {
+    if (daysTitle === "") {
+      return util.error("title cant be empty");
+    } else if (daysSubTitle === "") {
+      return util.error("subtitle cant be empty");
+    } else if (daysStart === "") {
+      return util.error("start time cant be empty");
+    } else if (daysEnd === "") {
+      return util.error("endtime cant be empty");
+    } else if (day === "") {
+      return util.error("weeksday cant be empty");
+    }
+
+    let daysTasks = {
+      title: daysTitle,
+      subtitle: daysSubTitle,
+      start: daysStart,
+      end: daysEnd,
+    };
+
+    daysTasksStore.push(daysTasks);
+
+    let daysPayload = {
+      id: util.genId(),
+      day: day,
+      day_tasks: daysTasksStore,
+    };
+    mainDaysStore.push(daysPayload);
+    let targetMonthData = util.getDataId(monthCardId);
+    targetMonthData[0].month_tasks = [
+      ...targetMonthData[0].month_tasks,
+      ...mainDaysStore,
+    ];
+
+    // save both the previous data and updated data in localstorage
+    let prevData = util.getData();
+
+    let newData = prevData.filter((list, id) => {
+      return list.id !== monthCardId;
+    });
+
+    let fullUpdatedData = [...newData, ...targetMonthData];
+
+    localStorage.setItem("timerz", JSON.stringify(fullUpdatedData));
+    // hide addDaysForm
+    openAddDays();
+    util.success("days added");
+  }
+
+  // delete data
   async function deleteData(id) {
     let restData = util.deleteData(id);
     let confirm = window.confirm(
       "All records added for this month would be wiped away, are you sure."
     );
-    localStorage.setItem("timerz", JSON.stringify(restData));
     if (confirm) {
       localStorage.setItem("timerz", JSON.stringify(restData));
       util.success("Record deleted");
@@ -158,11 +210,13 @@ export function DataContextProvider({ children }) {
         daysSubTitle,
         daysStart,
         daysEnd,
+        day,
         monthCardId,
         daysCardId,
         editState,
         deleteState,
         motion,
+        createDaysData,
         deleteData,
         openModal,
         closeModal,
@@ -178,6 +232,7 @@ export function DataContextProvider({ children }) {
         setDaysSubTitle,
         setDaysStart,
         setDaysEnd,
+        setDay,
         createData,
         setMonthCardId,
         setDayCardId,

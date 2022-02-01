@@ -33,7 +33,6 @@ export default function Home() {
         <NavBar active="months" />
 
         <Modal>
-          <BackNav active="February" />
           <br />
           <Days />
           <NavBar active="days" />

@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
-import { AddDays } from "..";
-
+import { useContext, useState, useEffect } from "react";
+import { AddDays, BackNav } from "..";
 import DataContext from "../../context/DataContext";
 
 import style from "./style.module.css";
@@ -11,10 +10,15 @@ export default function Days({
   days = "Monday",
   subtitle = "a must for me",
 }) {
-  let { openAddDays, daysVisible } = useContext(DataContext);
-  // const [actionVisibility, setActionVisibility] = useState(false);
-
+  let { openAddDays, daysVisible, monthCardId, util } = useContext(DataContext);
+  const [monthName, setMonthName] = useState("");
+  const [monthtasks, setMonthTasks] = useState([]);
   const [clickCount, setClickCount] = useState(0);
+  let localData = util.getDataId(monthCardId);
+
+  useEffect(() => {
+    console.log(localData);
+  }, [monthCardId]);
 
   function moreAction(e) {
     let parent = e.target.parentElement;
@@ -38,8 +42,10 @@ export default function Days({
 
   return (
     <>
+      <BackNav active="February" />
+
       <div className={style.daysContainer}>
-        {Array.from("1,2,3,4,4,").map((_, i) => {
+        {Array.from("12").map((_, i) => {
           return (
             <div className={style.main} key={i} data-days-card>
               <p className={style.p}>{days}</p>
