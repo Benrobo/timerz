@@ -152,6 +152,7 @@ export function DataContextProvider({ children }) {
     let daysPayload, prevData, targetMonthData, newData, fullUpdatedData;
     let daysTasks = {
       id: util.genId(),
+      day: day,
       title: daysTitle,
       subtitle: daysSubTitle,
       start: daysStart,
@@ -160,59 +161,12 @@ export function DataContextProvider({ children }) {
 
     daysTasksStore.push(daysTasks);
 
-    /**
-     *
-     * @Todo1 : check if day is present in month data also check if it has the same day (Monday === Monday), if they are the same, dont create extra day, just append the payload to the day_tasks array.
-     */
-
     const localData = util.getDataId(monthCardId);
-    let checkCount = 0;
-    localData
-      .map((list, i) => {
-        return list.month_tasks;
-      })[0]
-      .map((list, i) => {
-        if (list.day === day) {
-          return (checkCount += 1);
-        }
-        checkCount = 0;
-      });
 
-    if (checkCount > 0) {
-      let monthTasks = util.getDataId(monthCardId).map((list, i) => {
-        return list.month_tasks;
-      })[0];
-      monthTasks.map((list, i) => {
-        list.day_tasks = [...list.day_tasks, ...daysTasksStore];
-      });
-
-      targetMonthData = util.getDataId(monthCardId);
-      targetMonthData[0].month_tasks = monthTasks;
-
-      // save both the previous data and updated data in localstorage
-      prevData = util.getData();
-
-      newData = prevData.filter((list, id) => {
-        return list.id !== monthCardId;
-      });
-
-      fullUpdatedData = [...newData, ...targetMonthData];
-
-      localStorage.setItem("timerz", JSON.stringify(fullUpdatedData));
-      daysTasksStore = [];
-      return util.success("day task added");
-    }
-
-    daysPayload = {
-      id: util.genId(),
-      day: day,
-      day_tasks: daysTasksStore,
-    };
-    mainDaysStore.push(daysPayload);
     targetMonthData = util.getDataId(monthCardId);
     targetMonthData[0].month_tasks = [
       ...targetMonthData[0].month_tasks,
-      ...mainDaysStore,
+      ...daysTasksStore,
     ];
 
     // save both the previous data and updated data in localstorage
@@ -243,6 +197,26 @@ export function DataContextProvider({ children }) {
     }
   }
 
+  function deleteMonthCard(monthId, cardId) {
+    let dayData = util
+      .getDataId(monthId)
+      .map((list, _) => {
+        return list.month_tasks;
+      })[0]
+      .filter((list, _) => {
+        return list.id !== cardId;
+      });
+    let restData = util.getDataId(monthId);
+    restData[0].month_tasks = dayData;
+
+    let localData = util.deleteData(monthId);
+    const fullUpdatedData = [...localData, ...restData];
+
+    localStorage.setItem("timerz", JSON.stringify(fullUpdatedData));
+    setMonthCardId("dfvdfvdf");
+    util.success("succesfully deleted");
+  }
+
   return (
     <DataContext.Provider
       value={{
@@ -262,6 +236,7 @@ export function DataContextProvider({ children }) {
         editState,
         deleteState,
         motion,
+        deleteMonthCard,
         createDaysData,
         deleteData,
         openModal,

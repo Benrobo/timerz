@@ -13,32 +13,10 @@
       {
         "id": "Sdcdcwer4365fv",
         "days": "Monday",
-        "day_tasks": [
-          {
-            "title": "Practice Golang",
-            "subtitle": "a must for me",
-            "start_time": "09:30 AM",
-            "end_time": "12:20 PM"
-          }
-        ]
-      },
-      {
-        "id": "desf3453fedrf",
-        "days": "Tuesday",
-        "day_tasks": [
-          {
-            "title": "Learn DSA",
-            "subtitle": "a must for me",
-            "start_time": "09:30 AM",
-            "end_time": "12:20 PM"
-          },
-          {
-            "title": "Practice Golang",
-            "subtitle": "a must for me",
-            "start_time": "09:30 AM",
-            "end_time": "12:20 PM"
-          }
-        ]
+        "title": "Practice Golang",
+        "subtitle": "a must for me",
+        "start_time": "09:30 AM",
+        "end_time": "12:20 PM"
       }
     ]
   }

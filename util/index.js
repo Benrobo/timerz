@@ -6,7 +6,7 @@ export class Util {
     if (typeof window !== "undefined" && document !== "undefined") {
       // init notyf
       this.notif = new Notyf({
-        duration: 2000,
+        duration: 1000,
         position: {
           x: "right",
           y: "top",

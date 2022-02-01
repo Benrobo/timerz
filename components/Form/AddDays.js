@@ -18,6 +18,8 @@ export default function AddDays() {
     setDaysEnd,
     setDay,
     createDaysData,
+    monthCardId,
+    setMonthCardId,
   } = useContext(DataContext);
 
   return (
@@ -117,6 +119,7 @@ export default function AddDays() {
             className={style.create}
             onClick={(e) => {
               createDaysData();
+              setMonthCardId(monthCardId);
             }}
           >
             Create
