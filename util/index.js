@@ -69,6 +69,22 @@ export class Util {
     }
   }
 
+  deleteData(id) {
+    if (id === undefined || id === "") {
+      return this.error("failed to get months data, month id is invalid");
+    }
+    if (typeof window !== "undefined" && typeof document !== "undefined") {
+      if (this.local === null) {
+        this.createLocal();
+      }
+      let data = JSON.parse(localStorage.getItem("timerz"));
+      let localData = data.filter((list, i) => {
+        return list.id !== id;
+      });
+      return localData;
+    }
+  }
+
   addData(payload) {
     if (typeof window !== "undefined" && typeof document !== "undefined") {
       if (payload !== undefined || payload !== "") {

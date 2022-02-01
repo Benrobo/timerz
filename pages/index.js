@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   AddMonths,
   BackNav,
@@ -16,6 +16,12 @@ import DataContext from "../context/DataContext";
 
 export default function Home() {
   let { monthVisible, util } = useContext(DataContext);
+  const [storedData, setStoredData] = useState(null);
+
+  useEffect(() => {
+    setStoredData(util.getData());
+    return () => {};
+  }, [setStoredData]);
 
   return (
     <>
@@ -25,7 +31,7 @@ export default function Home() {
           <Error message="You have no collection" />
         ) : (
           <div className={style.monthsCont}>
-            <Months data={util.getData()} />
+            <Months data={storedData} />
             <div className={style.space}></div>
           </div>
         )}

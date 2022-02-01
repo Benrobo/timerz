@@ -22,6 +22,7 @@ export function DataContextProvider({ children }) {
 
   // Active cards (months/day)
   const [editState, setEditState] = useState(false);
+  const [deleteState, setDeleteState] = useState(false);
   const [monthCardId, setMonthCardId] = useState(null);
   const [daysCardId, setDayCardId] = useState(null);
 
@@ -94,7 +95,21 @@ export function DataContextProvider({ children }) {
         return false;
       });
 
-      if (check[check.length - 1] === false) {
+      if (check.length === 0) {
+        let newPayload = {
+          id: util.genId(),
+          month: selectedMonth,
+          year: selectedYear,
+          color: colorVal,
+          month_tasks: [],
+        };
+
+        localData.push(newPayload);
+
+        util.addData(localData);
+        util.success("Month saved");
+      }
+      if (check.length > 0 && check[check.length - 1] === false) {
         let newPayload = {
           id: util.genId(),
           month: selectedMonth,
@@ -109,8 +124,27 @@ export function DataContextProvider({ children }) {
         util.success("Month saved");
         return;
       }
+      if (check.length > 0 && check[check.length - 1] === true) {
+        util.error("Data already exist");
+      }
+    }
+  }
+  // delete data
 
-      util.error("Data already exist");
+  function deleteData() {
+    let restData = util.deleteData(monthCardId);
+    let confirm = window.confirm(
+      "All records added for this month would be wiped away, are you sure."
+    );
+
+    if (confirm) {
+      localStorage.setItem("timerz", JSON.stringify(restData));
+
+      util.success("Record deleted");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+      return;
     }
   }
 
@@ -130,6 +164,8 @@ export function DataContextProvider({ children }) {
         monthCardId,
         daysCardId,
         editState,
+        deleteState,
+        deleteData,
         openModal,
         closeModal,
         openAddMonth,
@@ -148,6 +184,7 @@ export function DataContextProvider({ children }) {
         setMonthCardId,
         setDayCardId,
         setEditState,
+        setDeleteState,
       }}
     >
       {children}

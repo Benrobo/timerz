@@ -4,8 +4,14 @@ import { useContext, useState } from "react";
 import DataContext from "../../context/DataContext";
 
 export default function Months({ data }) {
-  let { openModal, openAddMonth, setMonthCardId, setEditState } =
-    useContext(DataContext);
+  let {
+    openModal,
+    openAddMonth,
+    deleteData,
+    setMonthCardId,
+    setEditState,
+    setDeleteState,
+  } = useContext(DataContext);
 
   const [clickCount, setClickCount] = useState(0);
 
@@ -31,7 +37,7 @@ export default function Months({ data }) {
 
   return (
     <>
-      {data !== undefined && data.length > 0 ? (
+      {data !== undefined && data !== null && data.length > 0 ? (
         data.map((list, i) => {
           return (
             <div
@@ -87,6 +93,9 @@ export default function Months({ data }) {
                   onClick={(e) => {
                     hideMore(e);
                     setMonthCardId(list.id);
+                    setDeleteState(true);
+                    setEditState(false);
+                    deleteData();
                   }}
                 >
                   Delete
