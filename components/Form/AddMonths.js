@@ -22,13 +22,16 @@ const months = [
 export default function AddMonths() {
   const {
     colorVal,
-    setColorVal,
     selectedMonth,
     selectedYear,
-    setSelectedMonth,
-    setSelectedYear,
     createData,
     openAddMonth,
+    monthCardId,
+    setSelectedMonth,
+    setSelectedYear,
+    setColorVal,
+    setMonthCardId,
+    util,
   } = useContext(DataContext);
 
   // get years
@@ -36,6 +39,19 @@ export default function AddMonths() {
   for (let i = new Date().getFullYear(); i < 2099; i++) {
     years.push(i);
   }
+
+  let monthData = util.getDataId(monthCardId)[0];
+
+  // console.log("add month data", monthData);
+
+  // update color val
+  useEffect(() => {
+    if (monthData !== undefined) {
+      setColorVal(monthData.color);
+      setSelectedMonth(monthData.month);
+      setSelectedYear(monthData.year);
+    }
+  }, []);
 
   return (
     <div
@@ -64,7 +80,9 @@ export default function AddMonths() {
                 setSelectedMonth(e.target.value);
               }}
             >
-              <option value="">Select Month</option>
+              <option value={monthData !== undefined ? monthData.month : ""}>
+                {monthData !== undefined ? monthData.month : "Select Month"}
+              </option>
 
               {months.map((list, i) => (
                 <option value={list} key={i}>
@@ -83,7 +101,9 @@ export default function AddMonths() {
                 setSelectedYear(e.target.value);
               }}
             >
-              <option value="">Select Year</option>
+              <option value={monthData !== undefined ? monthData.year : ""}>
+                {monthData !== undefined ? monthData.year : "Select Year"}
+              </option>
               {years.map((list, i) => {
                 return (
                   <option value={list} key={i}>
@@ -130,6 +150,7 @@ export default function AddMonths() {
             className={style.cancel}
             onClick={() => {
               openAddMonth();
+              setMonthCardId(null);
             }}
           >
             Cancel

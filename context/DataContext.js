@@ -20,10 +20,17 @@ export function DataContextProvider({ children }) {
   const [daysStart, setDaysStart] = useState("");
   const [daysEnd, setDaysEnd] = useState("");
 
+  // Active cards (months/day)
+  const [editState, setEditState] = useState(false);
+  const [monthCardId, setMonthCardId] = useState(null);
+  const [daysCardId, setDayCardId] = useState(null);
+
   // modal show/hide
-  function openModal() {
-    let modal = document.querySelector("[data-modal-cont]");
-    modal.style.right = "0px";
+  function openModal(e) {
+    if (Object.entries(e.target.dataset).length > 0) {
+      let modal = document.querySelector("[data-modal-cont]");
+      modal.style.right = "0px";
+    }
   }
 
   function closeModal() {
@@ -45,7 +52,7 @@ export function DataContextProvider({ children }) {
     setColorVal(colorVal.value);
   }
 
-  console.log(util.getData());
+  // console.log(util.getData());
 
   function createData() {
     console.log(selectedYear, selectedMonth);
@@ -59,18 +66,52 @@ export function DataContextProvider({ children }) {
 
     let localData = util.getData();
 
-    let newPayload = {
-      id: util.genId(),
-      month: selectedMonth,
-      year: selectedYear,
-      color: colorVal,
-      month_tasks: [],
-    };
+    if (editState) {
+      let dataBaseOnId = localData.filter((list, i) => {
+        return list.id === monthCardId;
+      });
+      let extractedLocalData = localData.filter((list, i) => {
+        return list.id !== monthCardId;
+      });
+      let updatedPayload = {
+        id: monthCardId,
+        month: selectedMonth,
+        year: selectedYear,
+        color: colorVal,
+        month_tasks: dataBaseOnId[0].month_tasks,
+      };
+      // localData.push(updatedPayload);
+      localData = [...extractedLocalData, ...[updatedPayload]];
 
-    localData.push(newPayload);
+      util.addData(localData);
+      util.success("Month updated");
+    } else {
+      // check if the same month and year exist in localstorage
+      let check = localData.map((list, i) => {
+        if (list.month === selectedMonth && list.year === selectedYear) {
+          return true;
+        }
+        return false;
+      });
 
-    util.addData(localData);
-    util.success("Month saved");
+      if (check[check.length - 1] === false) {
+        let newPayload = {
+          id: util.genId(),
+          month: selectedMonth,
+          year: selectedYear,
+          color: colorVal,
+          month_tasks: [],
+        };
+
+        localData.push(newPayload);
+
+        util.addData(localData);
+        util.success("Month saved");
+        return;
+      }
+
+      util.error("Data already exist");
+    }
   }
 
   return (
@@ -86,6 +127,9 @@ export function DataContextProvider({ children }) {
         daysSubTitle,
         daysStart,
         daysEnd,
+        monthCardId,
+        daysCardId,
+        editState,
         openModal,
         closeModal,
         openAddMonth,
@@ -101,6 +145,9 @@ export function DataContextProvider({ children }) {
         setDaysStart,
         setDaysEnd,
         createData,
+        setMonthCardId,
+        setDayCardId,
+        setEditState,
       }}
     >
       {children}
